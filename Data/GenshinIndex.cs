@@ -1,9 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HeliumBot.Data
 {
     public class GenshinIndex
     {
+        [JsonProperty("avatars")]
+        public List<Avatar> Avatars { get; set; }
+        
+        [JsonProperty("city_explorations")]
+        public List<CityExploration> CityExplorations { get; set; }
+        
+        [JsonProperty("world_explorations")]
+        public List<WorldExploration> WorldExplorations { get; set; }
+        
+        [JsonProperty("stats")]
+        public Statistics Stats { get; set; }
+
         //array item
         public class CityExploration
         {
@@ -39,7 +52,7 @@ namespace HeliumBot.Data
             public string Type { get; set; }
         }
 
-        public class Stats
+        public class Statistics
         {
             [JsonProperty("active_day_number")]
             public int ActiveDays { get; set; }
