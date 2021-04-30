@@ -16,8 +16,12 @@ namespace HeliumBot.Plugins.Group
             {
                 switch (e.GetMessage())
                 {
-                    case "/money":
-                        await session.SendPlainText(e, "我是破晓，你能给我打钱吗？");
+                    case "/help":
+                        await session.SendPlainText(e, "欢迎使用HeliumBot 1.0", "===================",
+                            "/help : 查看帮助",
+                            "/genshin <uid> : 获取指定原神UID的公开信息",
+                            "/money : 给作者打钱",
+                            "/about : 查看Bot的关于信息和");
                         break;
                     case "/genshin":
                         await session.SendPlainText(e, "GENSIN IMPACT");

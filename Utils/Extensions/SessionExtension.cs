@@ -16,5 +16,15 @@ namespace HeliumBot.Utils.Extensions
                     
             await session.SendGroupMessageAsync(e.Sender.Group.Id ,builder);
         }
+        
+        public static async Task SendPlainText(this MiraiHttpSession session, IGroupMessageEventArgs e, params string[] text)
+        {
+            var builder = new MessageBuilder();
+            builder.AddAtMessage(e.Sender.Id);
+            builder.AddPlainMessage(" ");
+            builder.AddPlainMessage(string.Join('\n', text));
+                    
+            await session.SendGroupMessageAsync(e.Sender.Group.Id ,builder);
+        }
     }
 }
