@@ -17,16 +17,6 @@ namespace HeliumBot
 
             await session.ConnectAsync(sessionOptions, 2672886221);
 
-            await session.RegisterCommandAsync("hello", null, null, "-");
-
-            session.CommandExecuted += async (sender, eventArgs) =>
-            {
-                await session.SendGroupMessageAsync(eventArgs.Group,
-                    new PlainMessage($"Hi {eventArgs.Sender}! I'm a helium bot"));
-                
-                return false;
-            };
-            
             while (true)
             {
                 if (Console.ReadLine() == "exit")
