@@ -12,29 +12,22 @@ namespace HeliumBot
     {
         static async Task Main(string[] args)
         {
-            // var sessionOptions = new MiraiHttpSessionOptions("127.0.0.1",2334,"b5d83202bb874250984b20e6b0a4121c");
-            // var session = new MiraiHttpSession();
-            //
-            // session.AddPlugin(new HelloWorldPlugin());
-            // session.AddPlugin(new GenshinPlugin());
-            //
-            // await session.ConnectAsync(sessionOptions, 2672886221);
-            //
-            // while (true)
-            // {
-            //     if (Console.ReadLine() == "exit")
-            //     {
-            //         return;
-            //     }
-            // }
+            var sessionOptions = new MiraiHttpSessionOptions("127.0.0.1",2334,"b5d83202bb874250984b20e6b0a4121c");
+            var session = new MiraiHttpSession();
+            
+            session.AddPlugin(new HelloWorldPlugin());
+            session.AddPlugin(new GenshinPlugin());
+            
+            await session.ConnectAsync(sessionOptions, 2672886221);
 
-            var gq = new GenshinQuery("2.7.0", "165038162");
+            Console.WriteLine("Bot launched!");
             
-            var gi = await gq.QueryGenshinIndex();
-            
-            foreach (var giAvatar in gi.Avatars)
+            while (true)
             {
-                Console.WriteLine(giAvatar.Name);
+                if (Console.ReadLine() == "exit")
+                {
+                    return;
+                }
             }
         }
     }

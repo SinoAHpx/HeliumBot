@@ -23,9 +23,6 @@ namespace HeliumBot.Plugins.Group
                             "/money : 给作者打钱",
                             "/about : 查看Bot的关于信息和");
                         break;
-                    case "/genshin":
-                        await session.SendPlainText(e, "GENSIN IMPACT");
-                        break;
                 }
             }
             

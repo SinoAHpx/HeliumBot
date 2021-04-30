@@ -16,6 +16,7 @@ namespace HeliumBot.Implements
 
         private string UserAgent;
 
+        //引自 https://github.com/Azure99/GenshinPlayerQuery/blob/565421d6a791c7ff01f10fdeab93b4384b7f0268/src/Core/GenshinAPI.cs#L13
         private string Salt = "14bmu1mz0yuljprsfgpvjh3ju2ni468r";
 
         //TODO: 把Cookie的读取写进配置文件里
