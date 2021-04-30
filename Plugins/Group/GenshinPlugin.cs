@@ -14,9 +14,7 @@ namespace HeliumBot.Plugins.Group
     {
         public async Task<bool> GroupMessage(MiraiHttpSession session, IGroupMessageEventArgs e)
         {
-            if (e.Sender.Group.Id == 1042821169)
-            {
-                if (e.GetMessage().Contains("/genshin"))
+             if (e.GetMessage().Contains("/genshin"))
                 {
                     if (e.GetMessage().ParseCommand().Length < 2)
                     {
@@ -63,7 +61,6 @@ namespace HeliumBot.Plugins.Group
                         }
                     }
                 }
-            }
 
             return false;
         }
