@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HeliumBot.Configs;
+using HeliumBot.Data.Config;
 using HeliumBot.Implements;
 using HeliumBot.Utils.Extensions;
 using Mirai_CSharp;
@@ -24,7 +26,14 @@ namespace HeliumBot.Plugins.Group
                  {
                      try
                      {
-                         var gq = new GenshinQuery("2.7.0", e.GetMessage().ParseCommand()[1]);
+                         var gc = Configurator<GenshinConfig>.ReadConfig();
+                         var gq = new GenshinQuery
+                         {
+                             AppVersion = gc.AppVersion, 
+                             Uid = e.GetMessage().ParseCommand()[1],
+                             Salt = gc.Salt,
+                             Cookie = gc.Cookie
+                         };
                          var gi = await gq.QueryGenshinIndex();
 
                          var avatarTexts = new List<string>();
