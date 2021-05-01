@@ -17,18 +17,18 @@ namespace HeliumBot.Implements
         private string UserAgent;
 
         //引自 https://github.com/Azure99/GenshinPlayerQuery/blob/565421d6a791c7ff01f10fdeab93b4384b7f0268/src/Core/GenshinAPI.cs#L13
-        private string Salt = "14bmu1mz0yuljprsfgpvjh3ju2ni468r";
+        public string Salt { get; set; }
 
-        //TODO: 把Cookie的读取写进配置文件里
-        private string Cookie =
-            "aliyungf_tc=d1e8757fc7487bf628d68bd7fe9d74df6bacc49e50c1adcdf1e94399729aec0e; _MHYUUID=39447d6f-3c33-4725-a39e-079e2684a668; _ga_ZBNHQCY81B=GS1.1.1619417587.1.0.1619417587.0; _ga=GA1.2.1830700132.1619417550; _gid=GA1.2.1931531820.1619774946; ltoken=0BZfgU4nwjUGMsy8HVkz0ITEgnQLUG5MoSaA5T3L; ltuid=162906166; account_id=162906166; login_ticket=FDmpxxLpKG9iBwN3VlFcRn5Gpa4Ni88S5QNVORfF; cookie_token=4W73JXBDgxOUSq6cMXERws4wnIKcOV2UlrsVchBq; _gat=1";
+        public string Cookie { get; set; }
 
-        public GenshinQuery(string appVersion = null, string uid = null)
+        public GenshinQuery(string userAgent = null, string appVersion = null, string uid = null, string salt = null, string cookie = null)
         {
-            AppVersion = appVersion;
-            Uid = uid;
             UserAgent =
                 $"Mozilla/5.0 (Linux; Android 11; Redmi Note 8 Build/RQ2A.210405.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Mobile Safari/537.36 miHoYoBBS/{AppVersion}";
+            AppVersion = appVersion;
+            Uid = uid;
+            Salt = salt;
+            Cookie = cookie;
         }
 
         public GenshinQuery()
