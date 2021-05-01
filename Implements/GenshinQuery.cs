@@ -50,7 +50,7 @@ namespace HeliumBot.Implements
 
                 return genshinIndex;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
