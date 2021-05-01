@@ -9,7 +9,7 @@ namespace HeliumBot.Utils
             Console.WriteLine($"[{DateTime.Now:s}] {text}");
         }
 
-        public static void Log(params string[] text)
+        public static void Log(params object[] text)
         {
             Console.WriteLine($"[{DateTime.Now:s}] {string.Join(" ", text)}");
         }
