@@ -6,7 +6,7 @@ using Mirai_CSharp;
 using Mirai_CSharp.Models;
 using Mirai_CSharp.Plugin;
 
-namespace HeliumBot.Configs
+namespace HeliumBot.Implements
 {
     public class Bot
     {

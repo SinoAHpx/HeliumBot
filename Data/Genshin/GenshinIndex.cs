@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace HeliumBot.Data
+namespace HeliumBot.Data.Genshin
 {
     public class GenshinIndex
     {
