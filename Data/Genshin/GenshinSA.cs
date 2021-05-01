@@ -1,4 +1,4 @@
-﻿namespace HeliumBot.Data
+﻿namespace HeliumBot.Data.Genshin
 {
     public class GenshinSA
     {

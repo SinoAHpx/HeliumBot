@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HeliumBot.Data;
+using HeliumBot.Data.Genshin;
 using HeliumBot.Utils.Extensions;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -50,7 +50,7 @@ namespace HeliumBot.Implements
 
                 return genshinIndex;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
