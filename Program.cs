@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using HeliumBot.Configs;
 using HeliumBot.Data.Config;
@@ -16,8 +17,10 @@ namespace HeliumBot
     {
         static async Task Main(string[] args)
         {
-            BotConfig botConfig = null;
             Bot bot = null;
+            
+            BotConfig botConfig = null;
+            GenshinConfig genshinConfig = null;
 
             Console.WriteLine("Use /help for command help");
             while (true)
@@ -27,17 +30,29 @@ namespace HeliumBot
                     case "/exit":
                         if (bot != null) await bot.Terminate();
                         return;
-                    case "/config generate":
-                        BotConfigurator.GenerateConfig();
-                        Logger.Log("Empty bot config generated");
+                    case "/bot config write":
+                        Configurator<BotConfig>.WriteConfig(botConfig);
+                        Logger.Log("Bot config wroted");
                         break;
-                    case "/config read":
-                        botConfig = BotConfigurator.ReadConfig();
+                    case "/bot config read":
+                        botConfig = Configurator<BotConfig>.ReadConfig();
                         Logger.Log("Tried to read bot config");
                         break;
-                    case "/config write":
-                        BotConfigurator.WriteConfig(botConfig);
+                    case "/bot config generate":
+                        Configurator<BotConfig>.GenerateConfig();
+                        Logger.Log("Empty bot config generated");
+                        break;
+                    case "/genshin config write":
+                        Configurator<GenshinConfig>.WriteConfig(genshinConfig);
                         Logger.Log("Bot config wroted");
+                        break;
+                    case "/genshin config read":
+                        genshinConfig = Configurator<GenshinConfig>.ReadConfig();
+                        Logger.Log("Tried to read config");
+                        break;
+                    case "/genshin config generate":
+                        Configurator<GenshinConfig>.GenerateConfig();
+                        Logger.Log("Empty config generated");
                         break;
                     case "/bot launch":
                         if (botConfig != null)
@@ -63,11 +78,11 @@ namespace HeliumBot
                         Console.WriteLine("Usage:");
                         Console.WriteLine("/help : view commands help");
                         Console.WriteLine("/exit : exit plugin and dispose resources");
-                        Console.WriteLine("/launch : launch bot by bot config");
-                        Console.WriteLine("terminate : stop bot and dispose resources but not exit plugin");
-                        Console.WriteLine("/config generated : generate a empty bot config json");
-                        Console.WriteLine("/config read : read bot config json");
-                        Console.WriteLine("/config write : write bot config json");
+                        Console.WriteLine("/bot launch : launch bot by bot config");
+                        Console.WriteLine("/bot terminate : stop bot and dispose resources but not exit plugin");
+                        Console.WriteLine("/<module> config generate : generate a empty config json");
+                        Console.WriteLine("/<module> config read : read config json");
+                        Console.WriteLine("/<module> config write : write config json");
                         break;
                 }
             }
