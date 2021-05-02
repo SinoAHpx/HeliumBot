@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace HeliumBot.Data.Genshin
 {
-    public class GenshinSA
+    public class GenshinAbyss
     {
         /// <summary>
         /// 第几期深渊

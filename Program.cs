@@ -18,7 +18,7 @@ namespace HeliumBot
     {
         static async Task Main(string[] args)
         {
-            var isDebugging = true;
+            var isDebugging = false;
             
             #region Initilize Bot
 

@@ -56,6 +56,27 @@ namespace HeliumBot.Implements
             }
         }
 
+        public async Task<GenshinAbyss> QueryGenshinAbyss(int schedule = 1)
+        {
+            var url =
+                $"https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss?schedule_type={schedule}&server=cn_gf01&role_id={Uid}";
+            
+            var client = BuildRequest(url);
+
+            var responseJson = (await client.ExecuteAsync(new RestRequest(Method.GET))).Content;
+
+            try
+            {
+                var genshinIndex = JObject.Parse(responseJson)["data"].ToObject<GenshinAbyss>();
+
+                return genshinIndex;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         private RestClient BuildRequest(string url)
         {
             var rc = new RestClient {BaseUrl = new Uri(url)};
