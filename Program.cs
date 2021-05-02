@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HeliumBot.Configs;
@@ -17,13 +18,17 @@ namespace HeliumBot
     {
         static async Task Main(string[] args)
         {
-            Bot bot = null;
+            var isDebugging = true;
             
+            #region Initilize Bot
+
+            Bot bot = null;
+
             BotConfig botConfig = null;
             GenshinConfig genshinConfig = null;
 
             Console.WriteLine("Use /help for command help");
-            while (true)
+            while (!isDebugging)
             {
                 switch (Console.ReadLine())
                 {
@@ -86,6 +91,22 @@ namespace HeliumBot
                         break;
                 }
             }
+
+            #endregion
+            //
+            // var gc = Configurator<GenshinConfig>.ReadConfig();
+            // var genshin = new GenshinQuery
+            // {
+            //     AppVersion = gc.AppVersion,
+            //     Salt = gc.Salt,
+            //     Cookie = gc.Cookie,
+            //     Uid = "152372349"
+            // };
+            //
+            // var gi = await genshin.getSpiralAbyss();
+            //
+            // File.WriteAllText(@"D:\a\aaaa.json", gi);
+            // Console.WriteLine(gi);
         }
     }
 }
