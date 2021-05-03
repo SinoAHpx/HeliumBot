@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HeliumBot.Commands;
+using HeliumBot.Commands.Genshin;
 using HeliumBot.Configs;
 using HeliumBot.Data.Config;
 using HeliumBot.Implements;
@@ -70,7 +72,14 @@ namespace HeliumBot
                                 Plugins = new IPlugin[]
                                 {
                                     new HelloWorldPlugin(),
-                                    new GenshinPlugin()
+                                    new GenshinPlugin
+                                    {
+                                        CommandBases = new CommandBase[]
+                                        {
+                                            new GenshinIndexCommand(),
+                                            new GenshinAbyssCommand()
+                                        }
+                                    }
                                 }
                             };
 
