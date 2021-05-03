@@ -13,6 +13,7 @@ using HeliumBot.Utils.Extensions;
 using Mirai_CSharp;
 using Mirai_CSharp.Models;
 using Mirai_CSharp.Plugin;
+using Newtonsoft.Json;
 
 namespace HeliumBot
 {
@@ -61,7 +62,19 @@ namespace HeliumBot
                         Configurator<GenshinConfig>.GenerateConfig();
                         Logger.Log("Empty config generated");
                         break;
+                    case "/genshin generate dictionary":
+                        Configurator<GenshinDictionary>.GenerateConfig();
+                        Logger.Log("Empty genshin dictionary generated");
+                        break;
                     case "/bot launch":
+                        var configFile = new FileInfo(@".\Helium\BotConfig.json");
+                        var newGenerateText = JsonConvert.SerializeObject(new BotConfig(), Formatting.Indented);
+                        if (configFile.Exists && File.ReadAllText(configFile.FullName) != newGenerateText)
+                        {
+                            botConfig = Configurator<BotConfig>.ReadConfig();
+                            Logger.Log("Tried to read config");
+                        }
+                        
                         if (botConfig != null)
                             bot = new Bot
                             {
@@ -94,6 +107,7 @@ namespace HeliumBot
                         Console.WriteLine("/exit : exit plugin and dispose resources");
                         Console.WriteLine("/bot launch : launch bot by bot config");
                         Console.WriteLine("/bot terminate : stop bot and dispose resources but not exit plugin");
+                        Console.WriteLine("/genshin generate dictionary : generate a empty genshin dictionary");
                         Console.WriteLine("/<module> config generate : generate a empty config json");
                         Console.WriteLine("/<module> config read : read config json");
                         Console.WriteLine("/<module> config write : write config json");
@@ -102,20 +116,10 @@ namespace HeliumBot
             }
 
             #endregion
-            //
-            // var gc = Configurator<GenshinConfig>.ReadConfig();
-            // var genshin = new GenshinQuery
-            // {
-            //     AppVersion = gc.AppVersion,
-            //     Salt = gc.Salt,
-            //     Cookie = gc.Cookie,
-            //     Uid = "152372349"
-            // };
-            //
-            // var gi = await genshin.getSpiralAbyss();
-            //
-            // File.WriteAllText(@"D:\a\aaaa.json", gi);
-            // Console.WriteLine(gi);
+
+            var ts = "https://upload-bbs.mihoyo.com/game_record/genshin/character_side_icon/UI_AvatarIcon_Side_Bennett.png";
+
+            Console.WriteLine(ts.UrlToAvatarName());
         }
     }
 }

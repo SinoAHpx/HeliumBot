@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using HeliumBot.Data.Config;
+using Newtonsoft.Json;
 
 namespace HeliumBot.Utils.Extensions
 {
@@ -89,6 +93,27 @@ namespace HeliumBot.Utils.Extensions
         public static DateTime TimestampToDateTime(this string ex)
         {
             return DateTimeOffset.FromUnixTimeSeconds(ex.ToLong()).DateTime;
+        }
+
+        public static string UrlToAvatarName(this string icon)
+        {
+            var raw = Path.GetFileName(icon);
+            var path = @$".\Helium\{nameof(GenshinDictionary)}.json";
+            if (File.Exists(path))
+            {
+                var dictionary = JsonConvert.DeserializeObject<GenshinDictionary>(File.ReadAllText(path));
+
+                return dictionary.Characters.Any(x => raw.Contains(x.EnglishName))
+                    ? dictionary.Characters.First(x => raw.Contains(x.EnglishName)).Name
+                    : "旅行者";
+            }
+
+            throw new IOException("Please generate genshin dictionray first");
+        }
+
+        public static bool IsCommand(this string ex)
+        {
+            return ex.StartsWith("/");
         }
     }
 }

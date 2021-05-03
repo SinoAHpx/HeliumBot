@@ -19,7 +19,7 @@ namespace HeliumBot.Commands
                 }
             }
 
-            throw new ArgumentException("Not a match command prefix!", nameof(command));
+            return null;
         }
     }
 }

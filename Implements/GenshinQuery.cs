@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HeliumBot.Data.Genshin;
@@ -65,6 +66,7 @@ namespace HeliumBot.Implements
 
             var responseJson = (await client.ExecuteAsync(new RestRequest(Method.GET))).Content;
 
+            File.WriteAllText($@".\Helium\{Uid}_abyss.json", responseJson);
             try
             {
                 var genshinIndex = JObject.Parse(responseJson)["data"].ToObject<GenshinAbyss>();

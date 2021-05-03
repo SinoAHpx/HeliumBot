@@ -21,28 +21,32 @@ namespace HeliumBot.Plugins.Group
         
         public async Task<bool> GroupMessage(MiraiHttpSession session, IGroupMessageEventArgs e)
         {
-            var executor = new CommandExecutor
+            if (e.GetMessage().IsCommand())
             {
-                Commands = CommandBases
-            };
-
-            var inputCommand = e.GetMessage().ParseCommand();
-
-            try
-            {
-                var text = await executor.ExecuteCommand(new CommandUsage
+                var executor = new CommandExecutor
                 {
-                    Prefix = inputCommand[0],
-                    MainParam = inputCommand[1],
-                    Options = inputCommand.HasOptions() ? inputCommand.CopyStringArray(2) : null
-                });
-                await session.SendPlainText(e, text);
+                    Commands = CommandBases
+                };
+
+                var inputCommand = e.GetMessage().ParseCommand();
+
+                try
+                {
+                    var text = await executor.ExecuteCommand(new CommandUsage
+                    {
+                        Prefix = inputCommand[0],
+                        MainParam = inputCommand[1],
+                        Options = inputCommand.HasOptions() ? inputCommand.CopyStringArray(2) : null
+                    });
+                
+                    if(text != null) await session.SendPlainText(e, text);
+                }
+                catch (Exception exception)
+                {
+                    await session.SendPlainText(e, "请求失败:", exception.Message);
+                }
             }
-            catch (Exception exception)
-            {
-                await session.SendPlainText(e, "请求失败:", exception.Message);
-            }
-            
+
             return false;
         }
     }
