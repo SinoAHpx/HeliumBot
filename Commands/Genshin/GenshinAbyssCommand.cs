@@ -59,7 +59,7 @@ namespace HeliumBot.Commands.Genshin
             {
                 foreach (var floor in genshinAbyss.Floors)
                 {
-                    re += $"第{floor.Index}，已获得{floor.Star}/{floor.MaxStar}颗渊星:\n";
+                    re += $"第{floor.Index}层，已获得{floor.Star}/{floor.MaxStar}颗渊星:\n";
                     foreach (var chamber in floor.Levels)
                     {
                         re += $"{floor.Index}-{chamber.Index}，已获得{chamber.Star}/{chamber.MaxStar}颗渊星:\n";
