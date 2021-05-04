@@ -23,7 +23,7 @@ namespace HeliumBot
     {
         static async Task Main(string[] args)
         {
-            var isDebugging = true;
+            var isDebugging = false;
             
             #region Initilize Bot
 
@@ -118,18 +118,6 @@ namespace HeliumBot
             }
 
             #endregion
-            
-            var url = "http://genshin.pub";
-            var document = new HtmlDocument();
-            document.LoadHtml(await url.Request());
-
-            var node = document.DocumentNode;
-
-            var s = node.SelectNodes("/div[@class='GSAlmanacs_today_fit_right_item__2jJmU']");
-            foreach (var htmlNode in s)
-            {
-                Console.WriteLine(htmlNode.InnerHtml);
-            }
         }
     }
 }

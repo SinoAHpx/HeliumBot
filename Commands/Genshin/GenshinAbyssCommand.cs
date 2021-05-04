@@ -15,12 +15,9 @@ namespace HeliumBot.Commands.Genshin
     {
         public override async Task<string[]> Execute(CommandUsage command)
         {
-            var genshinConfig = Configurator<GenshinConfig>.ReadConfig();
             var genshinQuery = new GenshinQuery
             {
-                AppVersion = genshinConfig.AppVersion,
-                Salt = genshinConfig.Salt,
-                Cookie = genshinConfig.Cookie,
+                Config = Configurator<GenshinConfig>.ReadConfig(),
                 Uid = command.MainParam
             };
 

@@ -5,5 +5,6 @@
         public string AppVersion { get; set; }
         public string Salt { get; set; }
         public string Cookie { get; set; }
+        public string OsCookie { get; set; }
     }
 }

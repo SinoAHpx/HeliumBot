@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using HeliumBot.Data.Config;
+using HeliumBot.Data.Genshin;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -44,33 +45,6 @@ namespace HeliumBot.Utils.Extensions
             catch
             {
                 return false;
-            }
-        }
-
-        public static string ToElement(this string source)
-        {
-            switch (source)
-            {
-                case "Anemo":
-                    return "风";
-
-                case "Pyro":
-                    return "火";
-
-                case "Electro":
-                    return "雷";
-
-                case "Cryo":
-                    return "冰";
-
-                case "Geo":
-                    return "岩";
-
-                case "Hydro":
-                    return "水";
-
-                default:
-                    return source;
             }
         }
 
@@ -126,6 +100,53 @@ namespace HeliumBot.Utils.Extensions
             };
 
             return (await rest.ExecuteAsync(new RestRequest(method))).Content;
+        }
+
+        public static GenshinServer GetGenshinServerByUid(this string ex)
+        {
+            return ex.First() switch
+            {
+                '9' => GenshinServer.TwHkMo,
+                '8' => GenshinServer.Asia,
+                '7' => GenshinServer.Europe,
+                '6' => GenshinServer.America,
+                '5' => GenshinServer.Pilipili,
+                '1' => GenshinServer.Official,
+                _ => throw new ArgumentException("No such server!")
+            };
+        }
+
+        public static bool IsChineseServer(this string ex)
+        {
+            var re = ex.GetGenshinServerByUid();
+            return re == GenshinServer.Official || re == GenshinServer.Pilipili;
+        }
+
+        public static string ToServerId(this GenshinServer ex)
+        {
+            return ex switch
+            {
+                GenshinServer.Official => "cn_gf01",
+                GenshinServer.Pilipili => "cn_qd01",
+                GenshinServer.Asia => "os_asia",
+                GenshinServer.Europe => "os_euro",
+                GenshinServer.America => "os_usa",
+                GenshinServer.TwHkMo => "os_cht",
+                _ => throw new ArgumentOutOfRangeException(nameof(ex), ex, null)
+            };
+        }
+
+        public static string GetGenshinQueryUrl(this string uid, GenshinQueryType type = GenshinQueryType.Index, int abyssSchedule = 1)
+        {
+            var server = uid.GetGenshinServerByUid();
+            var pre = uid.IsChineseServer() ? "api-takumi.mihoyo.com" : "api-os-takumi.mihoyo.com";
+
+            return type switch
+            {
+                GenshinQueryType.Index => $"https://{pre}/game_record/genshin/api/index?server={server.ToServerId()}&role_id={uid}",
+                GenshinQueryType.Abyss => $"https://{pre}/game_record/genshin/api/spiralAbyss?schedule_type={abyssSchedule}&server={server.ToServerId()}&role_id={uid}",
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };;
         }
     }
 }
