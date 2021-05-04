@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HeliumBot.Configs;
 using HeliumBot.Data.Config;
 using HeliumBot.Data.Genshin;
 using HeliumBot.Utils.Extensions;
@@ -15,23 +16,22 @@ namespace HeliumBot.Implements
     {
         public string Uid { get; set; }
 
-        private string UserAgent;
+        private readonly string _userAgent;
 
         //引自 https://github.com/Azure99/GenshinPlayerQuery/blob/565421d6a791c7ff01f10fdeab93b4384b7f0268/src/Core/GenshinAPI.cs#L13
-        public GenshinConfig Config { get; set; }
+        private readonly GenshinConfig _config = Configurator<GenshinConfig>.ReadConfig();
 
-        public GenshinQuery(string uid = null, GenshinConfig config = null)
+        public GenshinQuery(string uid = null)
         {
-            UserAgent =
-                $"Mozilla/5.0 (Linux; Android 11; Redmi Note 8 Build/RQ2A.210405.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Mobile Safari/537.36 miHoYoBBS/{Config.AppVersion}";
+            _userAgent =
+                $"Mozilla/5.0 (Linux; Android 11; Redmi Note 8 Build/RQ2A.210405.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Mobile Safari/537.36 miHoYoBBS/{_config.AppVersion}";
             Uid = uid;
-            Config = config;
         }
 
         public GenshinQuery()
         {
-            UserAgent =
-                $"Mozilla/5.0 (Linux; Android 11; Redmi Note 8 Build/RQ2A.210405.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Mobile Safari/537.36 miHoYoBBS/{Config.AppVersion}";
+            _userAgent =
+                $"Mozilla/5.0 (Linux; Android 11; Redmi Note 8 Build/RQ2A.210405.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Mobile Safari/537.36 miHoYoBBS/{_config.AppVersion}";
         }
 
         public async Task<GenshinIndex> QueryGenshinIndex()
@@ -79,10 +79,10 @@ namespace HeliumBot.Implements
 
             rc.AddDefaultHeaders(new Dictionary<string, string>
             {
-                {"User-Agent", UserAgent},
+                {"User-Agent", _userAgent},
                 {"DS", GetDs()},
                 {"x-rpc-client_type", "5"},
-                {"x-rpc-app_version", Config.AppVersion},
+                {"x-rpc-app_version", _config.AppVersion},
                 {"Origin", "https://webstatic.mihoyo.com"},
                 {"Accept", "application/json, text/plain, */*"},
                 {"X-Requesed-With", "com.mihoyo.hyperion"},
@@ -92,7 +92,7 @@ namespace HeliumBot.Implements
                 {"Referer", "https://webstatic.mihoyo.com/"},
                 {"Accept-Encoding", "gzip, deflate"},
                 {"Accept-Language", "en-GB,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,en-US;q=0.6"},
-                {"Cookie", Uid.IsChineseServer() ? Config.Cookie : Config.OsCookie}
+                {"Cookie", Uid.IsChineseServer() ? _config.Cookie : _config.OsCookie}
             });
             
             return rc;
@@ -100,10 +100,10 @@ namespace HeliumBot.Implements
         
         private string GetDs()
         {
-            var version = Config.AppVersion.GetMd5();
+            var version = _config.AppVersion.GetMd5();
             var time = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
             var rs = GetRandomString(6);
-            var re = $"salt={Config.Salt}&t={time}&r={rs}".GetMd5();
+            var re = $"salt={_config.Salt}&t={time}&r={rs}".GetMd5();
             
             return $"{time},{rs},{re}";
         }

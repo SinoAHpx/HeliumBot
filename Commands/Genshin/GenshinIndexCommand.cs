@@ -16,7 +16,6 @@ namespace HeliumBot.Commands.Genshin
         {
             var genshinQuery = new GenshinQuery
             {
-                Config = Configurator<GenshinConfig>.ReadConfig(),
                 Uid = command.MainParam
             };
             var genshinIndex = await genshinQuery.QueryGenshinIndex();

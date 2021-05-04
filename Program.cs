@@ -118,6 +118,16 @@ namespace HeliumBot
             }
 
             #endregion
+
+            var command = new GenshinIndexCommand();
+            var re = await command.Execute(new CommandUsage
+            {
+                MainParam = "709195224",
+                Options = new[] {"-Avatar"},
+                Prefix = command.GetCommandPrefix()
+            });
+
+            Console.WriteLine(string.Join("\n", re));
         }
     }
 }
