@@ -117,18 +117,6 @@ namespace HeliumBot
             }
 
             #endregion
-
-            var ga = new GenshinAbyssCommand();
-            var re = await ga.Execute(new CommandUsage
-            {
-                MainParam = "112126468",
-                Options = new []{"-Detail"}
-            });
-            
-            foreach (var s in re)
-            {
-                Console.WriteLine(re);
-            }
         }
     }
 }

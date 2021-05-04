@@ -3,12 +3,18 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyVersion>1.1</AssemblyVersion>
+        <FileVersion>1.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Mirai-CSharp" Version="1.0.2.2-preview.4" />
       <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
       <PackageReference Include="RestSharp" Version="106.11.8-alpha.0.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\test.json" />
     </ItemGroup>
 
 </Project>
