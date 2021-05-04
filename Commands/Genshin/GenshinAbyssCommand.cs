@@ -24,7 +24,8 @@ namespace HeliumBot.Commands.Genshin
                 Uid = command.MainParam
             };
 
-            var genshinAbyss = await genshinQuery.QueryGenshinAbyss();
+            var schedule = command.Options.Any("-Previous") ? 2 : 1;
+            var genshinAbyss = await genshinQuery.QueryGenshinAbyss(schedule);
 
             return new[]
             {
