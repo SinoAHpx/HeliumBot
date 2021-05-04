@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.33" />
       <PackageReference Include="Mirai-CSharp" Version="1.0.2.2-preview.4" />
       <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
       <PackageReference Include="RestSharp" Version="106.11.8-alpha.0.12" />

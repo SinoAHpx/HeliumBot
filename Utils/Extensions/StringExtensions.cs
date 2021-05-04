@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using HeliumBot.Data.Config;
 using Newtonsoft.Json;
+using RestSharp;
 
 namespace HeliumBot.Utils.Extensions
 {
@@ -114,6 +116,16 @@ namespace HeliumBot.Utils.Extensions
         public static bool IsCommand(this string ex)
         {
             return ex.StartsWith("/");
+        }
+
+        public static async Task<string> Request(this string ex, Method method = Method.GET)
+        {
+            var rest = new RestClient
+            {
+                BaseUrl = new Uri(ex)
+            };
+
+            return (await rest.ExecuteAsync(new RestRequest(method))).Content;
         }
     }
 }
