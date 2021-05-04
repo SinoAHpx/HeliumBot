@@ -102,6 +102,9 @@ namespace HeliumBot.Data.Genshin
             /// </summary>
             [JsonProperty("avatar_icon")]
             public string AvatarIcon { get; set; }
+
+            [JsonProperty("icon")] 
+            public string Icon { get; set; }
             
             /// <summary>
             /// 数值

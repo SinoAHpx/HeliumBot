@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HeliumBot.Commands;
 using HeliumBot.Commands.Genshin;
 using HeliumBot.Configs;
+using HeliumBot.Data.Command;
 using HeliumBot.Data.Config;
 using HeliumBot.Implements;
 using HeliumBot.Plugins.Group;
@@ -117,9 +118,17 @@ namespace HeliumBot
 
             #endregion
 
-            var ts = "https://upload-bbs.mihoyo.com/game_record/genshin/character_side_icon/UI_AvatarIcon_Side_Bennett.png";
-
-            Console.WriteLine(ts.UrlToAvatarName());
+            var ga = new GenshinAbyssCommand();
+            var re = await ga.Execute(new CommandUsage
+            {
+                MainParam = "112126468",
+                Options = new []{"-Detail"}
+            });
+            
+            foreach (var s in re)
+            {
+                Console.WriteLine(re);
+            }
         }
     }
 }
