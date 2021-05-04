@@ -21,7 +21,7 @@ namespace HeliumBot.Plugins.Group
         
         public async Task<bool> GroupMessage(MiraiHttpSession session, IGroupMessageEventArgs e)
         {
-            if (e.GetMessage().IsCommand())
+            if (e.GetMessage().Contains("/Genshin"))
             {
                 var executor = new CommandExecutor
                 {
