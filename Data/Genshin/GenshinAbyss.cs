@@ -200,7 +200,7 @@ namespace HeliumBot.Data.Genshin
             /// 1是上半，2是下半
             /// </summary>
             [JsonProperty("index")]
-            public string Index { get; set; }
+            public int Index { get; set; }
             
             /// <summary>
             /// 时间
